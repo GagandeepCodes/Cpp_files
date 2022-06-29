@@ -34,6 +34,30 @@ void insertattail(Node *&tail, int d)
     tail->next = temp;
     tail = temp;
 }
+
+//insert at a position
+
+void insertatposition(Node* &tail,Node* &head, int position , int d){
+    Node* temp = head;
+    int cnt = 1;
+    if(position==1){
+        insertathead(head,d);
+        return;
+    }
+    while(cnt<position-1){
+        temp = temp->next;
+        cnt++;
+    }
+    if(temp->next==NULL){
+        insertattail(tail,d);
+        return ;
+    }
+
+    Node* nodetoinsert = new Node(d);
+
+    nodetoinsert->next = temp->next;
+    temp->next = nodetoinsert;
+}
 // printing linked list
 
 void print(Node *&head)
@@ -57,8 +81,18 @@ int main()
     print(head);
     insertathead(head, 20);
     // insertathead(head,30);
+    print(head);
     insertattail(tail, 40);
     print(head);
+    insertatposition(tail,head,3,50);
+    print(head);
+    insertatposition(tail,head,1,60);
+    print(head);
+    insertatposition(tail,head,6,70);
+    print(head);
+    insertattail(tail,80);
+    print(head);
+    // cout<<head->data<<" "<<tail->data<<endl;
 
     return 0;
 }

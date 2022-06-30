@@ -5,21 +5,23 @@ class Node
 public:
     int data;
     Node *next;
-    //parameterized constructor
+    // parameterized constructor
     Node(int data)
     {
         this->data = data;
         this->next = NULL;
     }
 
-    //destructor
-    ~Node(){
+    // destructor
+    ~Node()
+    {
         int value = this->data;
-        if(this->next!=NULL){
+        if (this->next != NULL)
+        {
             delete next;
             this->next = NULL;
         }
-        cout<<" memeory is free for data "<<value<<endl;
+        cout << " memeory is free for data " << value << endl;
     }
     // int getdata(){
     //     return this->data;
@@ -45,45 +47,53 @@ void insertattail(Node *&tail, int d)
     tail = temp;
 }
 
-//insert at a position
+// insert at a position
 
-void insertatposition(Node* &tail,Node* &head, int position , int d){
-    Node* temp = head;
+void insertatposition(Node *&tail, Node *&head, int position, int d)
+{
+    Node *temp = head;
     int cnt = 1;
-    if(position==1){
-        insertathead(head,d);
+    if (position == 1)
+    {
+        insertathead(head, d);
         return;
     }
-    while(cnt<position-1){
+    while (cnt < position - 1)
+    {
         temp = temp->next;
         cnt++;
     }
-    if(temp->next==NULL){
-        insertattail(tail,d);
-        return ;
+    if (temp->next == NULL)
+    {
+        insertattail(tail, d);
+        return;
     }
 
-    Node* nodetoinsert = new Node(d);
+    Node *nodetoinsert = new Node(d);
 
     nodetoinsert->next = temp->next;
     temp->next = nodetoinsert;
 }
 
 // deleting a node
-void deletenode(Node* &tail,Node* &head,int position){
-    //deleting first node
-    if(position == 1){
-        Node* temp = head;
+void deletenode(Node *&tail, Node *&head, int position)
+{
+    // deleting first node
+    if (position == 1)
+    {
+        Node *temp = head;
         head = head->next;
         temp->next = NULL;
         delete temp;
     }
-    //deleting middle or last node
-    else{
-        Node* curr  = head;
-        Node* prev  = NULL;
+    // deleting middle or last node
+    else
+    {
+        Node *curr = head;
+        Node *prev = NULL;
         int count = 1;
-        while(count<position){
+        while (count < position)
+        {
             prev = curr;
             curr = curr->next;
             count++;
@@ -92,7 +102,8 @@ void deletenode(Node* &tail,Node* &head,int position){
         curr->next = NULL;
 
         // updating the tail
-        if(prev->next==NULL){
+        if (prev->next == NULL)
+        {
             tail = prev;
         }
         delete curr;
@@ -114,9 +125,9 @@ void print(Node *&head)
 int main()
 {
     int f;
-    cout<<"Please enter the first value of linked list : ";
-    cin>>f;
-    cout<<endl;
+    cout << "Please enter the first value of linked list : ";
+    cin >> f;
+    cout << endl;
     Node *node1 = new Node(f);
     // cout << node1->data << endl;
     // cout << node1->next << endl;
@@ -143,54 +154,54 @@ int main()
     // print(head);
     // deletenode(head,1);
     // cout<<head->data<<" "<<tail->data<<endl;
-    while(1)
+    while (1)
     {
-        int n,x;
-        cout<<"\n1.insert at head\n2.insert at tail\n3.insert at position\n4.delete a node\n5.Print linked list\n6.exit"<<endl;
-        cout<<"press any of the following keys : ";
-        cin>>n;
-        cout<<endl;
-        if(n==6)
+        int n, x;
+        cout << "\n1.insert at head\n2.insert at tail\n3.insert at position\n4.delete a node\n5.Print linked list\n6.exit" << endl;
+        cout << "press any of the following keys : ";
+        cin >> n;
+        cout << endl;
+        if (n == 6)
         {
             break;
         }
-        switch(n)
+        switch (n)
         {
-            case 1:
-            cout<<"enter the element you want to insert : ";
-            cin>>x;
-            insertathead(head,x);
+        case 1:
+            cout << "enter the element you want to insert : ";
+            cin >> x;
+            insertathead(head, x);
             print(head);
             break;
 
-            case 2:
-            cout<<"enter the element you want to insert : ";
-            cin>>x;
-            insertattail(tail,x);
+        case 2:
+            cout << "enter the element you want to insert : ";
+            cin >> x;
+            insertattail(tail, x);
             print(head);
             break;
 
-            case 3:
+        case 3:
             int p;
-            cout<<"enter the position and element you want to insert : ";
-            cin>>p>>x;
-            insertatposition(tail,head,p,x);
+            cout << "enter the position and element you want to insert : ";
+            cin >> p >> x;
+            insertatposition(tail, head, p, x);
             print(head);
             break;
 
-            case 4:
-            cout<<"enter the position you want to delete the node : ";
-            cin>>x;
-            deletenode(tail,head,x);
+        case 4:
+            cout << "enter the position you want to delete the node : ";
+            cin >> x;
+            deletenode(tail, head, x);
             print(head);
             break;
 
-            case 5:
+        case 5:
             print(head);
         }
     }
 
-    cout<<"THANK YOU"<<endl;
+    cout << "THANK YOU" << endl;
 
     return 0;
 }

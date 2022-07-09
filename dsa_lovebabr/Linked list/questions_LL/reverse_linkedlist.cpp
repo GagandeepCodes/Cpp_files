@@ -131,6 +131,18 @@ void reverseLinkedList(Node* &tail,Node* &head){
 
     head = prev;
 }
+
+Node* reverse2(Node* head){
+    if(head == NULL || head->next == NULL){
+        return head;
+    }
+
+    Node* chotaHead = reverse2(head->next)
+    head->next->next = head;
+    head->next = NULL;
+
+    return chotaHead;
+}
 // printing linked list
 
 void print(Node *&head)

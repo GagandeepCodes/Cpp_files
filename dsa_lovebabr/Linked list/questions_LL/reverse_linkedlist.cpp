@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+//line-->113 to line-->133 reverse linked list code
 using namespace std;
 class Node
 {
@@ -109,7 +110,7 @@ void deletenode(Node *&tail, Node *&head, int position)
         delete curr;
     }
 }
-void reverseLinkedList(Node* &head){
+void reverseLinkedList(Node* &tail,Node* &head){
     if(head == NULL || head-> next == NULL)
     {
         head = NULL;
@@ -118,6 +119,7 @@ void reverseLinkedList(Node* &head){
     Node* prev = NULL;
     Node* curr = head;
     Node* forward = NULL;
+    tail = curr;
 
     while(curr!=NULL)
     {
@@ -220,7 +222,7 @@ int main()
             print(head);
         
         case 6:
-            reverseLinkedList(head);
+            reverseLinkedList(tail,head);
             print(head);
         }
     }

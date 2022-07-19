@@ -163,7 +163,7 @@ Node* reverse2(Node* head){
         return head;
     }
 
-    Node* chotaHead = reverse2(head->next)
+    Node* chotaHead = reverse2(head->next);
     head->next->next = head;
     head->next = NULL;
 

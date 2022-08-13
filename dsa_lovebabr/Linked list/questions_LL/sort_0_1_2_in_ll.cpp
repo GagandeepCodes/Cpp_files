@@ -1,3 +1,4 @@
+//code of sort 0 , 1, 2 is from line no 114 to 154
 #include <bits/stdc++.h>
 using namespace std;
 class Node
@@ -11,7 +12,6 @@ public:
         this->data = data;
         this->next = NULL;
     }
-
     // destructor
     ~Node()
     {
@@ -31,38 +31,28 @@ public:
     // }
 };
 // inserting things at head
-int getlength(Node *&head, int length)
-{
-    if(head->next == NULL) return length;
-    return getlength(head->next,length+1);
-
-}
-// inserting a node at head
-void insertathead(Node *&head, int d, int &n)
+void insertathead(Node *&head, int d)
 {
     Node *temp = new Node(d);
     temp->next = head;
     head = temp;
-    n++;
 }
-
 // inserting things at tail
-void insertattail(Node *&tail, int d, int &n)
+void insertattail(Node *&tail, int d)
 {
     Node *temp = new Node(d);
     tail->next = temp;
     tail = temp;
-    n++;
 }
 
 // insert at a position
-void insertatposition(Node *&tail, Node *&head, int position, int d, int &n)
+void insertatposition(Node *&tail, Node *&head, int position, int d)
 {
     Node *temp = head;
     int cnt = 1;
     if (position == 1)
     {
-        insertathead(head, d,n);
+        insertathead(head, d);
         return;
     }
     while (cnt < position - 1)
@@ -72,7 +62,7 @@ void insertatposition(Node *&tail, Node *&head, int position, int d, int &n)
     }
     if (temp->next == NULL)
     {
-        insertattail(tail, d,n);
+        insertattail(tail, d);
         return;
     }
 
@@ -80,11 +70,10 @@ void insertatposition(Node *&tail, Node *&head, int position, int d, int &n)
 
     nodetoinsert->next = temp->next;
     temp->next = nodetoinsert;
-    n++;
 }
 
 // deleting a node
-void deletenode(Node *&tail, Node *&head, int position, int &n)
+void deletenode(Node *&tail, Node *&head, int position)
 {
     // deleting first node
     if (position == 1)
@@ -116,29 +105,48 @@ void deletenode(Node *&tail, Node *&head, int position, int &n)
         }
         delete curr;
     }
-    n--;
 }
-// removes duplicates
-void removeduplicates(Node *&head, Node *&tail, int &n)
-{
+//sort 0's , 1's and 2's
+Node* sortlist(Node* &head){
+    int zerocount = 0;
+    int onecount = 0;
+    int twocount = 0;
 
-    map<int, int> counter;
-    // int n = getlength(head);
-    Node *temp = head;
-    for (int i = 0; i <= n - 1; i++)
-    {
-        if (counter[temp->data] == 0)
-        {
-            counter[temp->data]++;
+    Node* temp = head;
+
+    while(temp != NULL){
+        if(temp -> data == 0){
+            zerocount++;
         }
-        else
+        else if(temp -> data == 1){
+            onecount++;
+        }
+        else if(temp -> data == 2)
         {
-            cout<<"Node with data "<<temp->data<<" is deleted ."<<endl;
-            deletenode(tail, head, i+1,n);
+            twocount++;
         }
 
-        temp = temp->next;
+        temp = temp -> next;
     }
+
+    temp = head;
+    while(temp!=NULL){
+        if(zerocount!=0){
+            temp->data = 0;
+            zerocount--;
+        }
+        else if(onecount!=0){
+            temp -> data = 1;
+            onecount--;
+        }
+        else if(twocount!=0){
+            temp -> data = 2;
+            twocount--;
+        }
+        temp = temp -> next;
+    }
+
+    return head;
 }
 // printing linked list
 void print(Node *&head)
@@ -154,6 +162,7 @@ void print(Node *&head)
 
 int main()
 {
+    Node* node1 = new Node(0);
     // int f;
     // cout << "Please enter the first value of linked list : ";
     // cin >> f;
@@ -161,41 +170,34 @@ int main()
     // Node *node1 = new Node(f);
     // cout << node1->data << endl;
     // cout << node1->next << endl;
-    Node *node1 = new Node(10);
     Node *head = node1;
     Node *tail = node1;
-    // print(head);
-
-    int n = getlength(head,1);
-    insertathead(head, 20,n);
+    print(head);
+    insertathead(head, 0);
     // insertathead(head,30);
     print(head);
-    insertattail(tail, 20,n);
+    insertattail(tail, 0);
     print(head);
-    insertatposition(tail, head, 3, 50,n);
+    insertatposition(tail,head,3,1);
     print(head);
-    insertatposition(tail, head, 1, 60,n);
+    insertatposition(tail,head,1,1);
     print(head);
-    insertatposition(tail, head, 6, 70,n);
+    insertatposition(tail,head,6,2);
     print(head);
-    insertattail(tail, 70,n);
+    insertattail(tail,1);
     print(head);
-    deletenode(tail,head,7,n);
-    deletenode(tail,head,1,n);
-    print(head);
-    deletenode(tail,head,1,n);
-    insertattail(tail, 80,n);
-    print(head);
-    insertattail(tail, 90,n);
-    print(head);
-    insertattail(tail, 100,n);
-    print(head);
-    insertattail(tail, 100,n);
-    print(head);
-    removeduplicates(head, tail,n);
-    print(head);
-    
-
+    // deletenode(tail,head,7);
+    // print(head);
+    cout<<"Head : "<<head->data;
+    cout<<" tail : "<<tail->data<<endl;
+    Node* newhead = sortlist(head);
+    print(newhead);
+     cout<<"Head : "<<head->data;
+    cout<<" tail : "<<tail->data<<endl;
+    // deletenode(head,1);
+    // print(head);
+    // deletenode(head,1);
+    // cout<<head->data<<" "<<tail->data<<endl;
     // while (1)
     // {
     //     int n, x;
@@ -243,7 +245,7 @@ int main()
     //     }
     // }
 
-    // cout << "THANK YOU" << endl;
+    cout << "THANK YOU" << endl;
 
     return 0;
 }

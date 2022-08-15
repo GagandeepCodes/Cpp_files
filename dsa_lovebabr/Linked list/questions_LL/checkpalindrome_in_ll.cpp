@@ -1,4 +1,4 @@
-//line 113 to 154 code of merge two sorted ll
+//line 144 to 164 code of check palindrome
 #include <bits/stdc++.h>
 using namespace std;
 class Node
@@ -32,31 +32,38 @@ public:
     // }
 };
 // inserting things at head
+int getlength(Node *&head, int length)
+{
+    if(head->next == NULL) return length;
+    return getlength(head->next,length+1);
 
-void insertathead(Node *&head, int d)
+}
+// inserting a node at head
+void insertathead(Node *&head, int d, int &n)
 {
     Node *temp = new Node(d);
     temp->next = head;
     head = temp;
+    n++;
 }
-// inserting things at tail
 
-void insertattail(Node *&tail, int d)
+// inserting things at tail
+void insertattail(Node *&tail, int d, int &n)
 {
     Node *temp = new Node(d);
     tail->next = temp;
     tail = temp;
+    n++;
 }
 
 // insert at a position
-
-void insertatposition(Node *&tail, Node *&head, int position, int d)
+void insertatposition(Node *&tail, Node *&head, int position, int d, int &n)
 {
     Node *temp = head;
     int cnt = 1;
     if (position == 1)
     {
-        insertathead(head, d);
+        insertathead(head, d,n);
         return;
     }
     while (cnt < position - 1)
@@ -66,7 +73,7 @@ void insertatposition(Node *&tail, Node *&head, int position, int d)
     }
     if (temp->next == NULL)
     {
-        insertattail(tail, d);
+        insertattail(tail, d,n);
         return;
     }
 
@@ -74,10 +81,11 @@ void insertatposition(Node *&tail, Node *&head, int position, int d)
 
     nodetoinsert->next = temp->next;
     temp->next = nodetoinsert;
+    n++;
 }
 
 // deleting a node
-void deletenode(Node *&tail, Node *&head, int position)
+void deletenode(Node *&tail, Node *&head, int position, int &n)
 {
     // deleting first node
     if (position == 1)
@@ -109,64 +117,53 @@ void deletenode(Node *&tail, Node *&head, int position)
         }
         delete curr;
     }
+    n--;
 }
-//merged to sorted linked lists
-Node* solve(Node* head , Node* head1){
-    //defining pointers
-    Node* curr1 = head;
-    Node* next1 = curr1 -> next;
-    Node* curr2 = head1;
-    Node* next2 = curr2 -> next;
+// removes duplicates
+void removeduplicates(Node *&head, Node *&tail, int &n)
+{
 
-    while(curr2!=NULL && next1 != NULL){
-        // if only 1 tetms is there
-        if(head->next == NULL){
-            head -> next = head1;
-            return head;
+    map<int, int> counter;
+    // int n = getlength(head);
+    Node *temp = head;
+    for (int i = 0; i <= n - 1; i++)
+    {
+        if (counter[temp->data] == 0)
+        {
+            counter[temp->data]++;
         }
-        if(curr2->data >= curr1 -> data && curr2 -> data <= next1 -> data){
-            curr1 -> next = curr2;
-            next2 = curr2 -> next;
-            curr2 -> next = next1;
-            //updating pointers
-            curr1 = curr2;
-            curr2 = next2;
+        else
+        {
+            cout<<"Node with data "<<temp->data<<" is deleted ."<<endl;
+            deletenode(tail, head, i+1,n);
         }
-        else{
-            //updating pointers
-            curr1 = curr1 -> next;
-            next1 = next1 -> next;
 
-            if(next1 == NULL){
-                curr1 -> next = curr2;
-                return head;
-            }
-        }
+        temp = temp->next;
     }
-    return head;
 }
-Node* sortedlists(Node* head, Node* head1){
-    if(head == NULL){
-        return head1;
+Node* getnode(Node* head, int n){
+    Node* temp = head;
+    for(int i=0;i<n;i++){
+        temp = temp -> next;
     }
+    return temp;
+}
 
-    if (head1 == NULL){
-        return head;
+bool check(Node* head){
+    int n = getlength(head,1);
+    Node* start = head;
+
+    for(int i=0;i<=n/2;i++){
+        Node* end = getnode(head,n-1-i);
+        // cout<<start->data<<" "<<end->data<<endl;
+        if(start -> data!= end -> data){
+            return false;
+        }
+        start=start->next;
     }
-
-    if(head -> data <= head1 -> data){
-        return solve(head,head1);
-    }
-
-    else{
-        return solve(head1,head);
-    }
-
-    return head;
-
+    return true;
 }
 // printing linked list
-
 void print(Node *&head)
 {
     Node *temp = head;
@@ -187,41 +184,53 @@ int main()
     // Node *node1 = new Node(f);
     // cout << node1->data << endl;
     // cout << node1->next << endl;
-    Node *node1 = new Node(0);
-    Node* node2 = new Node(1);
-    Node* head1 = node2;
-    Node* tail1 = node2;
+    Node *node1 = new Node(1);
     Node *head = node1;
     Node *tail = node1;
-    print(head);
-    // insertathead(head, 2);
-    insertattail(tail,2);
+    // print(head);
+
+    int n = getlength(head,1);
+    // insertathead(head, 20,n);
     // insertathead(head,30);
     // print(head);
-    insertattail(tail, 4);
-    // print(head);
-    insertatposition(tail,head,4,6);
-    // print(head);
-    insertatposition(tail,head,5,8);
-    // print(head);
-    insertatposition(tail,head,6,10);
-    // print(head);
-    insertattail(tail,12);
+    insertattail(tail, 2,n);
+    insertattail(tail, 3,n);
+    insertattail(tail, 4,n);
+    insertattail(tail, 3,n);
+    insertattail(tail, 2,n);
+    insertattail(tail, 1,n);
     print(head);
-    insertattail(tail1,3);
-    insertattail(tail1,5);
-    insertattail(tail1,7);
-    insertattail(tail1,9);
-    print(head1);
-    // deletenode(tail,head,7);
+    // insertatposition(tail, head, 3,3,n);
     // print(head);
-    // cout<<"tail : "<<tail->data<<endl;
-    // deletenode(head,1);
+    // insertatposition(tail, head, 4, 3,n);
     // print(head);
-    // deletenode(head,1);
-    cout<<"Head : "<<head->data<<" "<<"Tail : "<<tail->data<<endl;
-    Node* newhead = sortedlists(head,head1);
-    print(newhead);
+    // insertatposition(tail, head, 5, 2,n);
+    // print(head);
+    // insertattail(tail, 1,n);
+    // print(head);
+    // deletenode(tail,head,7,n);
+    // deletenode(tail,head,1,n);
+    // print(head);
+    // deletenode(tail,head,1,n);
+    // insertattail(tail, 80,n);
+    // print(head);
+    // insertattail(tail, 90,n);
+    // print(head);
+    // insertattail(tail, 100,n);
+    // print(head);
+    // insertattail(tail, 100,n);
+    // print(head);
+    // removeduplicates(head, tail,n);
+    // print(head);
+    // Node* temp = getnode(head,0);
+    // cout<<temp->data<<endl;
+    cout<<"length : "<<getlength(head,1)<<endl;
+    if(check(head)==1){
+        cout<<"Yes it is a palindrome"<<endl;
+    }
+    else{
+        cout<<"No it is not a palindrome"<<endl;
+    }
     // while (1)
     // {
     //     int n, x;
@@ -269,7 +278,7 @@ int main()
     //     }
     // }
 
-    cout << "THANK YOU" << endl;
+    // cout << "THANK YOU" << endl;
 
     return 0;
 }

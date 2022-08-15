@@ -163,6 +163,31 @@ bool check(Node* head){
     }
     return true;
 }
+
+bool solvecheck(Node* head,vector<int> &arr){
+    int n = getlength(head,1);
+    int start = 0;
+    int end = n-1;
+    while(start<=end){
+        if(arr[start] != arr[end]){
+            return false;
+        }
+        start++;
+        end--;
+    }
+
+    return true;
+}
+bool checkpalin(Node* head){
+    vector<int> arr;
+    Node* temp = head;
+    while(temp != NULL){
+        arr.push_back(temp -> data);
+        temp = temp -> next;
+    }
+
+    return solvecheck(head,arr);
+}
 // printing linked list
 void print(Node *&head)
 {
@@ -225,7 +250,14 @@ int main()
     // Node* temp = getnode(head,0);
     // cout<<temp->data<<endl;
     cout<<"length : "<<getlength(head,1)<<endl;
-    if(check(head)==1){
+    // if(check(head)==1){
+    //     cout<<"Yes it is a palindrome"<<endl;
+    // }
+    // else{
+    //     cout<<"No it is not a palindrome"<<endl;
+    // }
+
+    if(checkpalin(head)){
         cout<<"Yes it is a palindrome"<<endl;
     }
     else{

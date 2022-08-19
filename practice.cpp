@@ -87,3 +87,26 @@
 //     cout<<s<<endl;
 //     // cout<<MissingNo(arr,9)<<endl;
 // }
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int sumofno(int n,int sum){
+
+    //base case
+    if(n==0){
+        return sum;
+    }
+
+    // int sum = 0;
+    sum = n + sumofno(n-1,sum);
+    return sum;
+}
+int main()
+{
+    int a = 4;
+    int sum = 0;
+    cout<<sumofno(a,sum)<<endl;  
+    return 0;
+}

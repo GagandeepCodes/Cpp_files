@@ -113,7 +113,7 @@ void deletenode(Node *&tail, Node *&head, int position)
 
 Node* GetMiddle(Node* head)
 {
-    if(head==NULL || head->next == NULL)
+    if(head == NULL || head->next == NULL)
     {
         return head;
     }
@@ -170,7 +170,6 @@ Node* reverse2(Node* head){
     return chotaHead;
 }
 // printing linked list
-
 void print(Node *&head)
 {
     Node *temp = head;

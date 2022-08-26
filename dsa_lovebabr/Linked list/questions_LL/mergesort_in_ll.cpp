@@ -1,4 +1,4 @@
-//line 113 to 154 code of merge two sorted ll
+// line 113 to 154 code of merge two sorted ll
 #include <bits/stdc++.h>
 using namespace std;
 class Node
@@ -110,60 +110,72 @@ void deletenode(Node *&tail, Node *&head, int position)
         delete curr;
     }
 }
-//merged to sorted linked lists
-Node* solve(Node* head , Node* head1){
-    //defining pointers
-    Node* curr1 = head;
-    Node* next1 = curr1 -> next;
-    Node* curr2 = head1;
-    Node* next2 = curr2 -> next;
+// merged to sorted linked lists
+Node *solve(Node *head, Node *head1)
+{
+    // defining pointers
+    Node *curr1 = head;
+    Node *next1 = curr1->next;
+    Node *curr2 = head1;
+    Node *next2 = curr2->next;
 
-    while(curr2!=NULL && next1 != NULL){
-        // if only 1 tetms is there
-        if(head->next == NULL){
-            head -> next = head1;
+    while (curr2 != NULL && next1 != NULL)
+    {
+        // if only 1 items is there
+        if (head->next == NULL)
+        {
+            head->next = head1;
             return head;
         }
-        if(curr2->data >= curr1 -> data && curr2 -> data <= next1 -> data){
-            curr1 -> next = curr2;
-            next2 = curr2 -> next;
-            curr2 -> next = next1;
-            //updating pointers
+        //main part
+        if (curr2->data >= curr1->data && curr2->data <= next1->data)
+        {
+            curr1->next = curr2;
+            next2 = curr2->next;
+            curr2->next = next1;
+            // updating pointers
             curr1 = curr2;
             curr2 = next2;
+            // next1 = curr1->next;
         }
-        else{
-            //updating pointers
-            curr1 = curr1 -> next;
-            next1 = next1 -> next;
+        else
+        {
+            // updating pointers
+            curr1 = curr1->next;
+            next1 = next1->next;
 
-            if(next1 == NULL){
-                curr1 -> next = curr2;
+            if (next1 == NULL)
+            {
+                curr1->next = curr2;
                 return head;
             }
         }
     }
     return head;
 }
-Node* sortedlists(Node* head, Node* head1){
-    if(head == NULL){
+Node *sortedlists(Node *head, Node *head1)
+{
+    if (head == NULL)
+    {
         return head1;
     }
 
-    if (head1 == NULL){
+    if (head1 == NULL)
+    {
         return head;
     }
 
-    if(head -> data <= head1 -> data){
-        return solve(head,head1);
+    if (head->data <= head1->data)
+    {
+        return solve(head, head1);
     }
 
-    else{
-        return solve(head1,head);
+    else
+    {
+        return solve(head1, head);
     }
 
     return head;
-
 }
 // printing linked list
 
@@ -188,30 +200,30 @@ int main()
     // cout << node1->data << endl;
     // cout << node1->next << endl;
     Node *node1 = new Node(0);
-    Node* node2 = new Node(1);
-    Node* head1 = node2;
-    Node* tail1 = node2;
+    Node *node2 = new Node(1);
+    Node *head1 = node2;
+    Node *tail1 = node2;
     Node *head = node1;
     Node *tail = node1;
     print(head);
     // insertathead(head, 2);
-    insertattail(tail,2);
+    insertattail(tail, 2);
     // insertathead(head,30);
     // print(head);
     insertattail(tail, 4);
     // print(head);
-    insertatposition(tail,head,4,6);
+    insertatposition(tail, head, 4, 6);
     // print(head);
-    insertatposition(tail,head,5,8);
+    insertatposition(tail, head, 5, 8);
     // print(head);
-    insertatposition(tail,head,6,10);
+    insertatposition(tail, head, 6, 10);
     // print(head);
-    insertattail(tail,12);
+    insertattail(tail, 12);
     print(head);
-    insertattail(tail1,3);
-    insertattail(tail1,5);
-    insertattail(tail1,7);
-    insertattail(tail1,9);
+    insertattail(tail1, 3);
+    insertattail(tail1, 5);
+    insertattail(tail1, 7);
+    insertattail(tail1, 9);
     print(head1);
     // deletenode(tail,head,7);
     // print(head);
@@ -219,8 +231,9 @@ int main()
     // deletenode(head,1);
     // print(head);
     // deletenode(head,1);
-    cout<<"Head : "<<head->data<<" "<<"Tail : "<<tail->data<<endl;
-    Node* newhead = sortedlists(head,head1);
+    cout << "Head : " << head->data << " "
+         << "Tail : " << tail->data << endl;
+    Node *newhead = sortedlists(head, head1);
     print(newhead);
     // while (1)
     // {

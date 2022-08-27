@@ -32,7 +32,7 @@ public:
     // }
 };
 // inserting things at head
-int getlength(Node *&head, int length)
+int getlength(Node *head, int length)
 {
     if(head->next == NULL) return length;
     return getlength(head->next,length+1);

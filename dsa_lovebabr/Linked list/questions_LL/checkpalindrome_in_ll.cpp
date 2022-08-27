@@ -149,7 +149,6 @@ Node* getnode(Node* head, int n){
     }
     return temp;
 }
-
 bool check(Node* head){
     int n = getlength(head,1);
     Node* start = head;

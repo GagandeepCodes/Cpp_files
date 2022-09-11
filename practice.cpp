@@ -90,23 +90,47 @@
 
 
 
+// #include<bits/stdc++.h>
+// using namespace std;
+// int sumofno(int n,int sum){
+
+//     //base case
+//     if(n==0){
+//         return sum;
+//     }
+
+//     // int sum = 0;
+//     sum = n + sumofno(n-1,sum);
+//     return sum;
+// }
+// int main()
+// {
+//     int a = 4;
+//     int sum = 0;
+//     cout<<sumofno(a,sum)<<endl;  
+//     return 0;
+// }
+
 #include<bits/stdc++.h>
 using namespace std;
-int sumofno(int n,int sum){
 
-    //base case
-    if(n==0){
-        return sum;
-    }
-
-    // int sum = 0;
-    sum = n + sumofno(n-1,sum);
-    return sum;
-}
 int main()
 {
-    int a = 4;
-    int sum = 0;
-    cout<<sumofno(a,sum)<<endl;  
+    long long int t;
+    cin>>t;
+    while(t--){
+        long long int m,n;
+        cin>>m>>n;
+        long long int arr[n];
+        long long int a;
+        long long int sum = 0;
+        for(int i=0;i<n;i++){
+            cin>>a;
+            sum = sum + a;
+        }
+        long long int x = sum%m;
+        cout<<x<<endl;
+
+    }
     return 0;
 }

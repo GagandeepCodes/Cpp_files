@@ -142,9 +142,6 @@ void deleteNode(int position, Node* & head) {
 
     }
 }
-
-
-
 int main() {
 
 

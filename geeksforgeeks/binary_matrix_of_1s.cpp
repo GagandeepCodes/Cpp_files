@@ -1,9 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-
-int main()
-{
-    class Solution {
+class Solution {
 public:
     vector<int> findMaxRow(vector<vector<int>> mat, int n) {
         //code here
@@ -18,5 +15,7 @@ public:
         return {row,n-col-1};
     }
 };
+int main()
+{
     return 0;
 }

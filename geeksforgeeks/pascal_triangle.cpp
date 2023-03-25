@@ -1,3 +1,5 @@
+#include<bits/stdc++.h>
+using namespace std;
 class Solution{
 public:
     ll mod = 1000000000 + 7;
@@ -31,3 +33,8 @@ public:
          return ans[n-1];
     }
 };
+int main()
+{
+    
+    return 0;
+}

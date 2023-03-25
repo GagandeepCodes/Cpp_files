@@ -116,21 +116,10 @@ using namespace std;
 
 int main()
 {
-    long long int t;
-    cin>>t;
-    while(t--){
-        long long int m,n;
-        cin>>m>>n;
-        long long int arr[n];
-        long long int a;
-        long long int sum = 0;
-        for(int i=0;i<n;i++){
-            cin>>a;
-            sum = sum + a;
-        }
-        long long int x = sum%m;
-        cout<<x<<endl;
-
-    }
+    vector<int> v;
+    v.push_back(5);
+    v.push_back(5);
+    cout<<v.size()<<endl;
+    cout<<v[10]<<endl;
     return 0;
 }

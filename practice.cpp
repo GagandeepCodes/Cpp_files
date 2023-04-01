@@ -117,9 +117,12 @@ using namespace std;
 int main()
 {
     vector<int> v;
-    v.push_back(5);
-    v.push_back(5);
-    cout<<v.size()<<endl;
-    cout<<v[10]<<endl;
+    int n;
+    cin>>n;
+    int count  = 0;
+    count++;
+    if(n%2==0 && count==0)
+        cout<<"Sabhya Chinaal"<<endl;
+        cout<<"Ankit Randi"<<endl;
     return 0;
 }

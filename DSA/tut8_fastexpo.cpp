@@ -16,6 +16,18 @@ int fastExpo(int a, int b ) {
     }
     return res;
 }
+long long int power(int a,int b){
+    if(b==0){
+        return 1;
+    }
+    long long int ans = power(a,b/2);
+    if(b%2){
+        return ans*ans*a;
+    }
+    else{
+        return ans*ans;
+    }
+}
 
 int main() {
 

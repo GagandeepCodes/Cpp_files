@@ -8,6 +8,7 @@
         "array": "cpp",
         "string": "cpp",
         "string_view": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "ios": "cpp"
     }
 }

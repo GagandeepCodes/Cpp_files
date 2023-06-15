@@ -10,5 +10,6 @@
         "string_view": "cpp",
         "stack": "cpp",
         "ios": "cpp"
-    }
+    },
+    "cph.general.onceMaintainerMessage": false
 }

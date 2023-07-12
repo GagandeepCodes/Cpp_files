@@ -4,6 +4,7 @@
         "map": "cpp",
         "random": "cpp",
         "complex": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "vector": "cpp"
     }
 }

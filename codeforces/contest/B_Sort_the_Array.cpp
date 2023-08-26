@@ -13,9 +13,9 @@ void solve(){
         cin>>v[i];
     }
     int li = 0;
-    for(int i=0;i<n;i++){
+    for(int i=0;i<n-1;i++){
         if(v[i]>v[i+1]){
-            li = i;
+            li = i+1;
         }
     }
     int st = li;

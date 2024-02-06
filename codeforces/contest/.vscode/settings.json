@@ -5,6 +5,8 @@
         "random": "cpp",
         "complex": "cpp",
         "valarray": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "unordered_map": "cpp",
+        "set": "cpp"
     }
 }

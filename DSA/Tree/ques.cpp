@@ -1,69 +1,97 @@
 #include <iostream>
-#include <vector>
-
+#include <queue>
+#include <string>
 using namespace std;
 
-vector<int> spiralOrder(vector<vector<int> >& matrix) {
-        vector<int> result;
-        if (matrix.empty() || matrix[0].empty()) {
-            return result;
-        }
-        
-        int rows = matrix.size(), cols = matrix[0].size();
-        int left = 0, right = cols-1, top = 0, bottom = rows-1;
-        
-        while (left <= right && top <= bottom) {
-            for (int i = left; i <= right; i++) {
-                result.push_back(matrix[top][i]);
-            }
-            top++;
-            
-            for (int i = top; i <= bottom; i++) {
-                result.push_back(matrix[i][right]);
-            }
-            right--;
-            
-            if (top <= bottom) {
-                for (int i = right; i >= left; i--) {
-                    result.push_back(matrix[bottom][i]);
-                }
-                bottom--;
-            }
-            
-            if (left <= right) {
-                for (int i = bottom; i >= top; i--) {
-                    result.push_back(matrix[i][left]);
-                }
-                left++;
-            }
-        }
-        
-        return result;
-    }
+class node {
+public:
+    int data;
+    node* left;
+    node* right;
 
-void printSpiral(vector<vector<int> >& matrix) {
-    vector<int> result = spiralOrder(matrix);
-    int n = result.size();
-    for (int i=0;i<n;i++) {
-        cout << result[i] << " ";
+    node(int d) {
+        this->data = d;
+        this->left = nullptr;
+        this->right = nullptr;
     }
-    cout << endl;
+};
+
+void levelOrderTraversal(node* root) {
+    if (root == nullptr)
+        return;
+
+    queue<node*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        int size = q.size();
+        for (int i = 0; i < size; ++i) {
+            node* current = q.front();
+            q.pop();
+            cout << current->data << " ";
+            if (current->left != nullptr)
+                q.push(current->left);
+            if (current->right != nullptr)
+                q.push(current->right);
+        }
+        cout << endl;
+    }
 }
 
-int main() {
-    int m,n;
-    cin>>m>>n;
-    vector<vector<int> > matrix;
-    for(int i=0;i<m;i++){
-        vector<int> temp;
-        for(int i=0;i<n;i++){
-            int a;
-            cin>>a;
-            temp.push_back(a);
-        }
-        matrix.push_back(temp);
+void buildFromLevelOrder(node* &root, vector<int> list, int n, int index = 0) {
+    if (index >= n || list[index] == INT_MAX) {
+        root = nullptr;
+        return;
     }
-    printSpiral(matrix);
 
+    root = new node(list[index]);
+    buildFromLevelOrder(root->left, list, n, 2 * index + 1);
+    buildFromLevelOrder(root->right, list, n, 2 * index + 2);
+}
+int findMaxPathSum(node * root, int & maxi) {
+  if (root == NULL) return 0;
+
+  int leftMaxPath = max(0, findMaxPathSum(root -> left, maxi));
+  int rightMaxPath = max(0, findMaxPathSum(root -> right, maxi));
+  int val = root -> data;
+  maxi = max(maxi, (leftMaxPath + rightMaxPath) + val);
+  return max(leftMaxPath, rightMaxPath) + val;
+
+}
+int maxPathSum(node * root) {
+  int maxi = INT_MIN;
+  findMaxPathSum(root, maxi);
+  return maxi;
+
+}
+int main() {
+   string s;
+    getline(cin, s, '\n');
+    vector<int>list;
+    int i=0;
+    while(i<s.size()){
+        if(s[i]=='n'){
+            list.push_back(INT_MAX);
+            while(s[i]!=' ' && i<s.size()){
+                i++;
+            }
+        }
+        else if(s[i]!=' '){
+            int j = i;
+            while(s[j]!=' ' && i<s.size()){
+                j++;
+            }
+            string w = s.substr(i,j-i);
+            i = j;
+            int num = stoi(w);
+            // int x = int(s[i])-48;    
+            list.push_back(num);
+        }
+        i++;
+    }
+    node *root = nullptr;
+    buildFromLevelOrder(root, list, list.size());
+    int ans = maxPathSum(root);
+    cout<<ans<<endl;
     return 0;
 }

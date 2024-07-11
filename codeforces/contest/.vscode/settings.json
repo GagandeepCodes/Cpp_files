@@ -9,6 +9,7 @@
         "unordered_map": "cpp",
         "set": "cpp",
         "string": "cpp",
-        "ratio": "cpp"
+        "ratio": "cpp",
+        "ostream": "cpp"
     }
 }

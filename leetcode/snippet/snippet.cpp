@@ -31,6 +31,39 @@ const int  N = 2e5 + 5 ;
 
 class Solution {
 public:
+    vector<int> findAllPrimes(int n) {
+        vector<int> prime(n + 1, 1);
+
+        prime[0] = prime[1] = 0; 
+        for (int i = 2; i <= sqrt(n); ++i) {
+            if (prime[i] == 1) {
+                for (int j = i * i; j <= n; j += i) {
+                    prime[j] = 0; 
+                }
+            }
+        }
+        
+        vector<int> ans;
+        for (int i = 2; i <= n; ++i) {
+            if (prime[i] == 1) {
+                ans.push_back(i);
+            }
+        }
+        return ans;
+    }
+    vector<int> findDivisors(int n) {
+        vector<int> divisors; 
+        int sqrtN = sqrt(n); 
+        for (int i = 1; i <= sqrtN; ++i) { 
+            if (n % i == 0) { 
+                divisors.push_back(i); 
+                if (i != n / i) {
+                    divisors.push_back(n / i); 
+                }
+            }
+        }
+        return divisors; 
+    }
     long long maximumTotalDamage(vector<int>& power) {
         const int ZERO = []()
         {

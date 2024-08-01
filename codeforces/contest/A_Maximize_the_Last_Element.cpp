@@ -48,47 +48,20 @@ ll fastpow2(ll x){
     return res;
 }
 void solve(){
-    ll t;cin>>t;
+    int t;cin>>t;
     while(t--){
-        ll n,m;cin>>n>>m;
-        vector<ll> a(n,0);
-        vector<ll> b(n,0);
-        ll i=0;
-        for(;i<n;i++){
-            cin>>a[i];
+        int n;cin>>n;
+        vector<int> v(n,0);
+        for(int i=0;i<n;i++){
+            cin>>v[i];
         }
-        i=0;
-        for(;i<n;i++){
-            cin>>b[i];
-        }
-        vector<pair<ll,ll> > v;
-        i=0;
-        for(;i<n;i++){
-            v.push_back({a[i],b[i]});
-        }
-        sort(v.begin(),v.end());
-        ll maxi=-1;
-        i=0; ll j=0; ll sum=0; ll tt=0;
-        ll size = 0;
-        for(;i<v.size();i++){
-            ll num = v[i].first;
-            int t = v[i].second;
-            sum+=num*t;
-            while(sum > m || v[i].first-v[j].first > 1){
-                int x = v[j].second;
-                int y = v[j].first;
-                while((sum>m || v[i].first-v[j].first>1) && x>0){
-                    sum-=y;
-                    x--;
-                }
-                j++;
+        int ans=-1;
+        for(int i=0;i<n;i++){
+            if(i%2==0){
+                ans=max(ans,v[i]);
             }
-            maxi=max(maxi,sum);
         }
-        if(v[size-1].first-v[j].first<=1 && sum<=m){
-            maxi=max(maxi,sum);
-        }
-        cout<<maxi<<endl;
+        cout<<ans<<endl;
     }
 }
 int main()

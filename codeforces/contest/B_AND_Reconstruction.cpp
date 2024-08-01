@@ -50,45 +50,33 @@ ll fastpow2(ll x){
 void solve(){
     ll t;cin>>t;
     while(t--){
-        ll n,m;cin>>n>>m;
-        vector<ll> a(n,0);
-        vector<ll> b(n,0);
-        ll i=0;
-        for(;i<n;i++){
-            cin>>a[i];
-        }
-        i=0;
-        for(;i<n;i++){
+        ll n;cin>>n;
+        vector<ll> b(n-1,0);
+        for(ll i=0;i<n-1;i++){
             cin>>b[i];
         }
-        vector<pair<ll,ll> > v;
-        i=0;
-        for(;i<n;i++){
-            v.push_back({a[i],b[i]});
+        vector<ll> a(n,0);
+        a[0]=b[0];
+        ll m = n-1;
+        for(ll i=0;i<m-1;i++){
+            a[i+1] = b[i]|b[i+1];
         }
-        sort(v.begin(),v.end());
-        ll maxi=-1;
-        i=0; ll j=0; ll sum=0; ll tt=0;
-        ll size = 0;
-        for(;i<v.size();i++){
-            ll num = v[i].first;
-            int t = v[i].second;
-            sum+=num*t;
-            while(sum > m || v[i].first-v[j].first > 1){
-                int x = v[j].second;
-                int y = v[j].first;
-                while((sum>m || v[i].first-v[j].first>1) && x>0){
-                    sum-=y;
-                    x--;
-                }
-                j++;
+        a[n-1] = b[m-1];
+        bool flag = true;
+        for(ll i=0;i<n-1;i++){
+            if((a[i]&a[i+1])!=b[i]){
+                flag = false;
+                break;
             }
-            maxi=max(maxi,sum);
         }
-        if(v[size-1].first-v[j].first<=1 && sum<=m){
-            maxi=max(maxi,sum);
+        if(flag){
+            for(ll i=0;i<n;i++){
+                cout<<a[i]<<" ";
+            }cout<<endl;
         }
-        cout<<maxi<<endl;
+        else{
+            cout<<-1<<endl;
+        }
     }
 }
 int main()

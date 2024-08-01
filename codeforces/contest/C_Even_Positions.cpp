@@ -48,47 +48,38 @@ ll fastpow2(ll x){
     return res;
 }
 void solve(){
-    ll t;cin>>t;
+    int t;cin>>t;
     while(t--){
-        ll n,m;cin>>n>>m;
-        vector<ll> a(n,0);
-        vector<ll> b(n,0);
-        ll i=0;
-        for(;i<n;i++){
-            cin>>a[i];
-        }
-        i=0;
-        for(;i<n;i++){
-            cin>>b[i];
-        }
-        vector<pair<ll,ll> > v;
-        i=0;
-        for(;i<n;i++){
-            v.push_back({a[i],b[i]});
-        }
-        sort(v.begin(),v.end());
-        ll maxi=-1;
-        i=0; ll j=0; ll sum=0; ll tt=0;
-        ll size = 0;
-        for(;i<v.size();i++){
-            ll num = v[i].first;
-            int t = v[i].second;
-            sum+=num*t;
-            while(sum > m || v[i].first-v[j].first > 1){
-                int x = v[j].second;
-                int y = v[j].first;
-                while((sum>m || v[i].first-v[j].first>1) && x>0){
-                    sum-=y;
-                    x--;
-                }
-                j++;
+        int n;cin>>n;
+        string s;
+        cin>>s;
+        ll ans=0;
+        stack<pair<char,int> > st;
+        for(int i=0;i<s.size();i++){
+            if(st.empty()){
+                pair<char,int> p = make_pair(s[i],i);
+                st.push(p);
             }
-            maxi=max(maxi,sum);
+            else{
+                if(s[i]==')' && st.top().first=='('){
+                    ans+=(i-st.top().second);
+                    st.pop();
+                }
+                else if(s[i]=='_' && st.top().first=='('){
+                    ans+=(i-st.top().second);
+                    st.pop();
+                }
+                else if(s[i]==')' && st.top().first=='_'){
+                    ans+=(i-st.top().second);
+                    st.pop();
+                }
+                else{
+                    pair<char,int> p = make_pair(s[i],i);
+                    st.push(p);
+                }
+            }
         }
-        if(v[size-1].first-v[j].first<=1 && sum<=m){
-            maxi=max(maxi,sum);
-        }
-        cout<<maxi<<endl;
+        cout<<ans<<endl;
     }
 }
 int main()

@@ -48,47 +48,40 @@ ll fastpow2(ll x){
     return res;
 }
 void solve(){
-    ll t;cin>>t;
+    int t;
+    cin>>t;
     while(t--){
-        ll n,m;cin>>n>>m;
-        vector<ll> a(n,0);
-        vector<ll> b(n,0);
-        ll i=0;
-        for(;i<n;i++){
-            cin>>a[i];
+        int n;
+        cin>>n;
+        vector<string> v(2);
+        cin>>v[0]>>v[1];
+        if(n<3){
+            cout<<0<<endl;
         }
-        i=0;
-        for(;i<n;i++){
-            cin>>b[i];
-        }
-        vector<pair<ll,ll> > v;
-        i=0;
-        for(;i<n;i++){
-            v.push_back({a[i],b[i]});
-        }
-        sort(v.begin(),v.end());
-        ll maxi=-1;
-        i=0; ll j=0; ll sum=0; ll tt=0;
-        ll size = 0;
-        for(;i<v.size();i++){
-            ll num = v[i].first;
-            int t = v[i].second;
-            sum+=num*t;
-            while(sum > m || v[i].first-v[j].first > 1){
-                int x = v[j].second;
-                int y = v[j].first;
-                while((sum>m || v[i].first-v[j].first>1) && x>0){
-                    sum-=y;
-                    x--;
+        else{
+            int cnt=0;
+            for(int i=1;i<n-1;i++){
+                if(v[0][i]=='.'){
+                    if(v[0][i-1]=='.' && v[0][i+1]=='.'){
+                        if(v[1][i-1]=='x' && v[1][i+1]=='x'){
+                            if(v[1][i]=='.'){
+                                cnt++;
+                            }
+                        }
+                    }
                 }
-                j++;
+                if(v[1][i]=='.'){
+                    if(v[1][i-1]=='.' && v[1][i+1]=='.'){
+                        if(v[0][i-1]=='x' && v[0][i+1]=='x'){
+                            if(v[0][i]=='.'){
+                                cnt++;
+                            }
+                        }
+                    }
+                }
             }
-            maxi=max(maxi,sum);
+            cout<<cnt<<endl;
         }
-        if(v[size-1].first-v[j].first<=1 && sum<=m){
-            maxi=max(maxi,sum);
-        }
-        cout<<maxi<<endl;
     }
 }
 int main()

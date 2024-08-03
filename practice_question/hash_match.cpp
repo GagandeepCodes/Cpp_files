@@ -4,7 +4,7 @@
 using namespace std;
 int main() {
     int N, K;
-    std::cin >> N >> K;
+    cin >> N >> K;
 
     vector<int> A(N);
     vector<int> B(K);

@@ -1,45 +1,72 @@
-struct Point {
-    double x, y;
-};
+#include<bits/stdc++.h>
+using namespace std;
 
-double area(Point p1, Point p2, Point p3) {
-    return abs((p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y)) / 2.0);
-}
+bool isValidRomanNumeral(const string& s) {
+    unordered_map<char, int> values = {
+        {'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}
+    };
 
-bool isInside(Point a, Point b, Point c, Point p) {
-    double A = area(a, b, c);
-    
-    double A1 = area(b, c, p);
-    double A2 = area(a, c, p);
-    double A3 = area(b, a, p);
-
-    return A == A1 + A2 + A3;
-}
-
-int pointsBelong(int x1, int y1, int x2, int y2, int x3, int y3, int xp, int yp, int xq, int yq) 
-{
-    Point a = {double(x1), double(y1)};
-    Point b = {double(x2), double(y2)};
-    Point c = {double(x3), double(y3)};
-    Point p = {double(xp), double(yp)};
-    Point q = {double(xq), double(yq)};
-
-    double ab = sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
-    double bc = sqrt(pow(c.x - b.x, 2) + pow(c.y - b.y, 2));
-    double ac = sqrt(pow(a.x - c.x, 2) + pow(a.y - c.y, 2));
-
-    int output = 0;
-    if (ab + bc > ac && bc + ac > ab && ab + ac > bc) {
-        if (isInside(a, b, c, p) && isInside(a, b, c, q)) {
-            output = 3;
-        } else if (isInside(a, b, c, p)) {
-            output = 1;
-        } else if (isInside(a, b, c, q)) {
-            output = 2;
+    int repeatCount = 0;
+    char lastChar = '\0';
+    for (size_t i = 0; i < s.length(); ++i) {
+        char current = s[i];
+        if (values.find(current) == values.end()) {
+            return false;
+        }
+        if (current == lastChar) {
+            repeatCount++;
+            if ((current == 'I' || current == 'X' || current == 'C' || current == 'M') && repeatCount > 2) {
+                return false;
+            } else if (!(current == 'I' || current == 'X' || current == 'C' || current == 'M') && repeatCount > 0) {
+                return false;
+            }
         } else {
-            output = 4;
+            repeatCount = 0;
+        }
+
+        if (i > 0) {
+            char previous = s[i - 1];
+            if (values[previous] < values[current]) {
+                if (!(previous == 'I' || previous == 'X' || previous == 'C')) {
+                    return false;
+                }
+                if (i > 1 && values[s[i - 2]] == values[previous]) {
+                    return false;
+                }
+                if (values[current] > 10 * values[previous]) {
+                    return false;
+                }
+            }
+        }
+        lastChar = current;
+    }
+    return true;
+}
+
+int romanToInt(const string& s) {
+    unordered_map<char, int> values = {
+        {'I', 1}, {'V', 5}, {'X', 10}, {'L', 50}, {'C', 100}, {'D', 500}, {'M', 1000}
+    };
+
+    int result = 0;
+    for (size_t i = 0; i < s.length(); ++i) {
+        if (i > 0 && values[s[i]] > values[s[i - 1]]) {
+            result += values[s[i]] - 2 * values[s[i - 1]];
+        } else {
+            result += values[s[i]];
         }
     }
+    return result;
+}
 
-    return output;
+int main() {
+    string s;cin>>s;
+    bool flag = isValidRomanNumeral(s);
+    int ans = 0;
+    if(flag){
+        ans = romanToInt(s);
+    }
+    if(flag)cout<<ans<<endl;
+    else cout<<"Invalid"<<endl;
+    return 0;
 }
